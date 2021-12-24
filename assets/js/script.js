@@ -1,4 +1,8 @@
 const formulario = document.forms[0];
+const ipAdressElement = document.querySelector('#ip');
+const locationElement = document.querySelector('#location');
+const timeZoneElement = document.querySelector('#timezone');
+const ispElement = document.querySelector('#isp');
 let ip = '';
 let latitude = 0;
 let longitude = 0;
@@ -32,9 +36,6 @@ const getAsync = async () => {
          <p>${responseData.city} - ${responseData.country_name} </p>   
      `
         ).openPopup();
-
-
-
 }
 
 getAsync()
