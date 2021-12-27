@@ -91,7 +91,7 @@ function updateMap(latitude, longitude) {
 /* init map*/
 var greenIcon = L.icon({
     iconUrl: './assets/images/icon-location.svg',
-    iconSize: [46, 54], // size of the icon
+    iconSize: [42, 48], // size of the icon
     shadowSize: [0, 0], // size of the shadow
     iconAnchor: [22, 20], // point of the icon which will correspond to marker's location
     popupAnchor: [0, 0] // point from which the popup should open relative to the iconAnchor
