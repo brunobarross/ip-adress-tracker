@@ -9,7 +9,9 @@ let latitude = 0;
 let longitude = 0;
 
 
-
+const getErrormessage = messages => ({
+    '422': 'Please enter a valid IP/DNS!'
+})[messages] || 'It was not possible to track the IP/DNS address'
 
 
 const getIP = () => {
@@ -27,33 +29,33 @@ const getIP = () => {
 
 const key = 'https://geo.ipify.org/api/v2/country?apiKey=at_fw5XoPFjFTLSRurkjlGJX6axsvDDq&ipAddress=8.8.8.8'
 
+
+
 const getAsync = async () => {
     try {
         // const response = await fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=f24ced2d28ce4f688f903dd9bd50b952&ip=${ipNumber}`);
         const response = await fetch(`https://geo.ipify.org/api/v2/country,city?apiKey=at_fw5XoPFjFTLSRurkjlGJX6axsvDDq&ipAddress=${ipNumber}`);
         const responseData = await response.json();
-        console.log(response)
+
         console.log(responseData)
         const {
             ip,
             isp,
             location,
-            messages
         } = responseData;
 
         document.querySelector('output').innerText = '';
         if (!response.ok) {
-            document.querySelector('output').innerText = messages;
-            return
+            throw new Error(getErrormessage(responseData['code']));
+
         }
+
         latitude = location.lat;
         longitude = location.lng;
         addDom(ip, isp, location)
         updateMap(latitude, longitude);
-
-
-    } catch (error) {
-        console.log(error)
+    } catch (err) {
+        document.querySelector('output').innerText = err.message;
     }
 }
 
