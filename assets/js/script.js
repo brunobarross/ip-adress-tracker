@@ -14,6 +14,15 @@ const getErrormessage = messages => ({
 })[messages] || 'It was not possible to track the IP/DNS address'
 
 
+function mascaraIp(evento) {
+    var ip = evento.target;
+    ip.value = ip.value.replace(/[^\d]+/g, '');
+}
+
+inptIP.addEventListener('keyup', mascaraIp);
+
+
+
 const getIP = () => {
     function getValue(evento) {
         evento.preventDefault()
@@ -21,7 +30,6 @@ const getIP = () => {
         console.log(ipNumber)
         getAsync()
     }
-
 
     formulario.addEventListener('submit', getValue);
 }
@@ -47,13 +55,13 @@ const getAsync = async () => {
         document.querySelector('output').innerText = '';
         if (!response.ok) {
             throw new Error(getErrormessage(responseData['code']));
-
         }
 
         latitude = location.lat;
         longitude = location.lng;
         addDom(ip, isp, location)
         updateMap(latitude, longitude);
+
     } catch (err) {
         document.querySelector('output').innerText = err.message;
     }
@@ -121,6 +129,7 @@ L.tileLayer(
         accessToken: "your.mapbox.access.token",
     }
 ).addTo(map)
+
 
 
 

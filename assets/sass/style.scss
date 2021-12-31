@@ -127,8 +127,10 @@ header {
         background-color: #fff;
         z-index: 500;
         margin-bottom: -128px;
+        min-height: 180px;
 
         @media(max-width: 1024px) {
+            min-height: auto;
             display: flex;
             flex-direction: column;
             align-items: center;
